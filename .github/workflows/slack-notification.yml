@@ -23,7 +23,7 @@ jobs:
       - name: Send success message to Slack
         if: ${{ inputs.deploy-job-status == 'success' }}
         id: slack-success
-        uses: slackapi/slack-github-action@v1.16.0
+        uses: slackapi/slack-github-action@v1.23.0
         with:
           payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"Se realizó el despliegue del front-end en el ambiente de *${{ inputs.env-name }}*"}},{"type":"section","text":{"type":"mrkdwn","text":"${{ inputs.url }}"}}]}'
         env:
@@ -32,7 +32,7 @@ jobs:
       - name: Send failure message to Slack
         if: ${{ inputs.deploy-job-status == 'failure' }}
         id: slack-failure
-        uses: slackapi/slack-github-action@v1.16.0
+        uses: slackapi/slack-github-action@v1.23.0
         with:
           payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"El despliegue del front-end en el ambiente de *${{ inputs.env-name }}* tuvo errores"}}]}'
         env:
@@ -41,10 +41,9 @@ jobs:
       - name: Send cancelled message to Slack
         if: ${{ inputs.deploy-job-status == 'cancelled' }}
         id: slack-cancelled
-        uses: slackapi/slack-github-action@v1.16.0
+        uses: slackapi/slack-github-action@v1.23.0
         with:
           payload: '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"El despliegue del front-end en el ambiente de *${{ inputs.env-name }}* fue cancelado"}}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.slack-webhook-url }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
